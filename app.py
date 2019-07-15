@@ -5,6 +5,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import io
 import base64 
+import requests
+import json
 
 import matplotlib 
 matplotlib.use('agg')
@@ -59,16 +61,31 @@ def home():
             graph_url = base64.b64encode(img.getvalue()).decode()
             graph = 'data:image/png;base64,{}'.format(graph_url)
             
+            url1='https://pokeapi.co/api/v2/pokemon/'+pokemon1['Name'].values[0].lower()
+            url2='https://pokeapi.co/api/v2/pokemon/'+pokemon2['Name'].values[0].lower()
+            web1=requests.get(url1)
+            web2=requests.get(url2)
+
+            if str(web1)=='<Response [404]>':
+                abort(404)
+            else:
+                gambar1=web1.json()['sprites']['front_default']
+            
+            if str(web2)=='<Response [404]>':
+                abort(404)
+            else:
+                gambar2=web2.json()['sprites']['front_default']
+
             if prediction == 1:
                 prob = model.predict_proba(battle)[0][1] * 100
                 win = name1
                 result = {'prob':prob, 'win':win, 'graph':graph}
-                return render_template('hasil.html', result=result)
+                return render_template('hasil.html', result=result, gambar1=gambar1, gambar2=gambar2)
             else:
                 prob = model.predict_proba(battle)[0][0] * 100
                 win = name2
                 result = {'prob':prob, 'win':win, 'graph':graph}
-                return render_template('hasil.html', result=result)
+                return render_template('hasil.html', result=result, gambar1=gambar1, gambar2=gambar2)
         else:
             abort(404)
 
