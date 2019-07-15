@@ -55,19 +55,19 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_
 
 
 # Machine Learning model
-from sklearn.ensemble import RandomForestClassifier
-rfc = RandomForestClassifier(n_estimators=100)
-rfc.fit(X_train, y_train)
-predictions = rfc.predict(X_test)
+from sklearn.linear_model import LogisticRegression
+logreg = LogisticRegression(solver='lbfgs')
+logreg.fit(X_train, y_train)
+predictions = logreg.predict(X_test)
 
 # Model Testing
 from sklearn.metrics import confusion_matrix, classification_report
-# print(rfc.score(X_test, y_test))
-# print(confusion_matrix(y_test, predictions))
-# print(classification_report(y_test, predictions))
+print(logreg.score(X_test, y_test))
+print(confusion_matrix(y_test, predictions))
+print(classification_report(y_test, predictions))
 # model seems has a high prediction score.
 
-# Batlle prediction
+# Battle prediction
 name1 = 'Charmander'
 name2 = 'Bulbasaur'
 
@@ -78,12 +78,12 @@ def battle(name1, name2):
         pokemon1 = pokemon[pokemon['Name']==name1][['HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed', 'Overall']]
         pokemon2 = pokemon[pokemon['Name']==name2][['HP', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed', 'Overall']]
         battle = np.concatenate([pokemon1.values, pokemon2.values], axis=1)
-        prediction = rfc.predict(battle)[0] 
+        prediction = logreg.predict(battle)[0] 
         if prediction == 1:
-            prob = rfc.predict_proba(battle)[0][1] * 100
+            prob = round(logreg.predict_proba(battle)[0][1] * 100)
             print('{}% {} Wins!'.format(prob, name1))
         else:
-            prob = rfc.predict_proba(battle)[0][0] * 100
+            prob = round(logreg.predict_proba(battle)[0][0] * 100)
             print('{}% {} Wins!'.format(prob, name2))
     else:
         print('Nama Pokemon tidak terdaftar')

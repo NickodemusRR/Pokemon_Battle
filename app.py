@@ -77,12 +77,12 @@ def home():
                 gambar2=web2.json()['sprites']['front_default']
 
             if prediction == 1:
-                prob = model.predict_proba(battle)[0][1] * 100
+                prob = round(model.predict_proba(battle)[0][1] * 100)
                 win = name1
                 result = {'prob':prob, 'win':win, 'graph':graph}
                 return render_template('hasil.html', result=result, gambar1=gambar1, gambar2=gambar2)
             else:
-                prob = model.predict_proba(battle)[0][0] * 100
+                prob = round(model.predict_proba(battle)[0][0] * 100)
                 win = name2
                 result = {'prob':prob, 'win':win, 'graph':graph}
                 return render_template('hasil.html', result=result, gambar1=gambar1, gambar2=gambar2)
