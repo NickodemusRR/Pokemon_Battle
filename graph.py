@@ -17,23 +17,41 @@ compare = pd.concat([pokemon1, pokemon2])
 
 # print(compare)
 plt.figure(figsize=(12,8))
-plt.subplot(161)
+ax = plt.subplot(161)
 plt.bar([compare.iloc[0]['Name'], compare.iloc[1]['Name']], compare['HP'], color=['red', 'blue'])
-plt.title('HP')
-plt.subplot(162)
+ax.set_title('HP')
+for p in ax.patches:
+    ax.annotate('{}'.format(p.get_height()), (p.get_x()+0.24, p.get_height()-3.3), fontsize=15)
+
+ax = plt.subplot(162)
 plt.bar([compare.iloc[0]['Name'], compare.iloc[1]['Name']], compare['Attack'], color=['red', 'blue'])
-plt.title('Attack')
-plt.subplot(163)
+ax.set_title('Attack')
+for p in ax.patches:
+    ax.annotate('{}'.format(p.get_height()), (p.get_x()+0.24, p.get_height()-3.3), fontsize=15)
+
+ax = plt.subplot(163)
 plt.bar([compare.iloc[0]['Name'], compare.iloc[1]['Name']], compare['Defense'], color=['red', 'blue'])
-plt.title('Defense')
-plt.subplot(164)
+ax.set_title('Defense')
+for p in ax.patches:
+    ax.annotate('{}'.format(p.get_height()), (p.get_x()+0.24, p.get_height()-3.3), fontsize=15)
+
+ax = plt.subplot(164)
 plt.bar([compare.iloc[0]['Name'], compare.iloc[1]['Name']], compare['Sp. Atk'], color=['red', 'blue'])
-plt.title('Sp. Attack')
-plt.subplot(165)
+ax.set_title('Sp. Attack')
+for p in ax.patches:
+    ax.annotate('{}'.format(p.get_height()), (p.get_x()+0.18, p.get_height()-4.3), fontsize=15)
+
+ax = plt.subplot(165)
 plt.bar([compare.iloc[0]['Name'], compare.iloc[1]['Name']], compare['Sp. Def'], color=['red', 'blue'])
-plt.title('Sp. Defense')
-plt.subplot(166)
+ax.set_title('Sp. Defense')
+for p in ax.patches:
+    ax.annotate('{}'.format(p.get_height()), (p.get_x()+0.21, p.get_height()-3.5), fontsize=15)
+
+ax = plt.subplot(166)
 plt.bar([compare.iloc[0]['Name'], compare.iloc[1]['Name']], compare['Speed'], color=['red', 'blue'])
-plt.title('Speed')
+ax.set_title('Speed')
+for p in ax.patches:
+    ax.annotate('{}'.format(p.get_height()), (p.get_x()+0.18, p.get_height()-4.3), fontsize=15)
+
 plt.tight_layout()
 plt.show()

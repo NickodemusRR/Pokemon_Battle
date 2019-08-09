@@ -53,7 +53,6 @@ from sklearn.model_selection import train_test_split
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=101)
 # print(X_train.head(2))
 
-
 # Machine Learning model
 from sklearn.linear_model import LogisticRegression
 logreg = LogisticRegression(solver='lbfgs')
